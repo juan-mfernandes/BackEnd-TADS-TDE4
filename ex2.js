@@ -3,21 +3,29 @@
 - catch: uma mensagem de erro, informando que a operação possui erro, dizendo se é par ou ímpar e trazendo o número.
 Dica: Utilize uma promise com função (resolve, reject). */
 
+const sucesso = (resultado) => {
+    return "Operação concluída com sucesso! O número somado é par: " + resultado;
+}
+
+const erro = (resultado) => {
+    return "Operação falhou! O número somado não é par: " + resultado;
+}
+
 function soma(num1, num2) {
     let resultado = num1 + num2;
     return new Promise( (resolve, reject) => {
         setTimeout(() => {
             if (resultado % 2 == 0) {
-                resolve("Operação concluída com sucesso e o número somado é par: " + resultado);
+                resolve(sucesso(resultado));
             } else {
-                reject("Operação falhou, o número somando é impar: " + resultado);
+                reject(erro(resultado));
             }
-        }, 0);
+        }, 500);
     }); 
 }
 
-soma(1,2)
-.then((message) => {
+soma(1,2).then(
+    (message) => {
     console.log(message);
 }).catch((err) => {
     console.log(err);
